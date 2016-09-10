@@ -1,0 +1,18 @@
+SET prevThrottle TO 0.
+SET georgePitch TO 0.
+
+WAIT UNTIL sas = false.
+
+UNTIL sas = true {
+	LOCK steering TO srfprograde + r(georgePitch, 0, 0).
+	IF verticalspeed < -1 {
+		SET georgePitch TO georgePitch + 1.
+	} ELSE IF verticalspeed > 1 {
+			 SET georgePitch TO georgePitch - 1.
+	  }
+	IF verticalspeed < -0.1 {
+		SET georgePitch To georgePitch + 0.1.
+	} ELSE IF verticalspeed > 0.1 {
+		  SET georgePitch TO georgePitch -0.1. //
+	  }
+}
